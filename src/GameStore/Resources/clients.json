@@ -1,0 +1,16 @@
+[
+  {
+    "Id": 0,
+    "Name": "Mariusz Jędrzejewski",
+    "Address": "Bajeczna 16",
+    "Postal": "84-360",
+    "City": "Łeba"
+  },
+  {
+    "Id": 1,
+    "Name": "Aleksander",
+    "Address": "Wielki",
+    "Postal": "23-111",
+    "City": "Jerozolima"
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "Id": 0,
+    "Name": "Counter-Strike: Global Offensive",
+    "Cost": 29.99,
+    "ReleaseDate": "21-08-2012",
+    "Developers": ["Valve Corporation, Hidden Path Entertainment"],
+    "Publishers": ["Valve Corporation"],
+    "AvailableCopies": 50,
+    "RentedCopies": 0
+  },
+  {
+    "Id": 0,
+    "Name": "Counter-Strike: Global Offensive",
+    "Cost": 29.99,
+    "ReleaseDate": "21-08-2012",
+    "Developers": ["Valve Corporation, Hidden Path Entertainment"],
+    "Publishers": ["Valve Corporation"],
+    "AvailableCopies": 50,
+    "RentedCopies": 0
+  }
+]
