@@ -3,20 +3,26 @@
     "Id": 0,
     "Name": "Counter-Strike: Global Offensive",
     "Cost": 29.99,
+    "Genres": ["Action", "First-person shooter", "Tactical"],
+    "Modes": ["Single-player", "Multi-player"],
     "ReleaseDate": "21-08-2012",
     "Developers": ["Valve Corporation, Hidden Path Entertainment"],
     "Publishers": ["Valve Corporation"],
     "AvailableCopies": 50,
-    "RentedCopies": 0
+    "RentedCopies": 0,
+    "ImageLink": "https://images.g2a.com/newlayout/323x433/1x1x0/cf9d56ddd32e/590db26eae653a7c1e3e9090"
   },
   {
     "Id": 0,
     "Name": "Counter-Strike: Global Offensive",
     "Cost": 29.99,
+    "Genres": ["Action", "First-person shooter", "Tactical"],
+    "Modes": ["Single-player", "Multi-player"],
     "ReleaseDate": "21-08-2012",
     "Developers": ["Valve Corporation, Hidden Path Entertainment"],
     "Publishers": ["Valve Corporation"],
     "AvailableCopies": 50,
-    "RentedCopies": 0
+    "RentedCopies": 0,
+    "ImageLink": "https://cdn.akamai.steamstatic.com/steam/apps/730/capsule_616x353.jpg?t=1612812939"
   }
 ]
