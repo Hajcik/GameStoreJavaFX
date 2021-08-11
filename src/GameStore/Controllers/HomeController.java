@@ -13,12 +13,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -30,15 +28,12 @@ import java.net.URL;
 import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class HomeController implements Initializable {
 
-    public Button check;
     public ListView ListViewGames;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -62,6 +57,13 @@ public class HomeController implements Initializable {
      //   thread.start();
     }
 
+
+    public Button SearchButton;
+    public TextField SearchBar;
+
+    public ObservableList<Game> games_obs;
+    public ObservableList<Client> clients_obs;
+
     public void loadDataJSON() {
 
         try {
@@ -70,8 +72,8 @@ public class HomeController implements Initializable {
             List<Game> games = Arrays.asList(mapper.readValue(Paths.get("src/GameStore/Resources/games.json").toFile(), Game[].class));
             List<Client> clients = Arrays.asList(mapper.readValue(Paths.get("src/GameStore/Resources/clients.json").toFile(), Client[].class));
 
-            ObservableList<Game> games_obs = FXCollections.observableArrayList(games);
-            ObservableList<Client> clients_obs = FXCollections.observableArrayList(clients);
+            games_obs = FXCollections.observableArrayList(games);
+            clients_obs = FXCollections.observableArrayList(clients);
 
             ListViewGames.setItems(games_obs);
             ListViewGames.setCellFactory(param -> new ListCell<Game>(){
@@ -83,16 +85,26 @@ public class HomeController implements Initializable {
                     if(empty || game == null || game.getName() == null || game.getImageLink() == null) {
                         setText(null);
                         setGraphic(null);
-                    } else {
 
-                        String image_url = game.getImageLink();
-                        Image image = new Image(image_url);
-                        ImageView imageView = new ImageView(image);
-                        imageView.setFitWidth(150);
-                        imageView.setFitHeight(200);
+                    } else if (SearchBar.getText().isEmpty()){
+                            String image_url = game.getImageLink();
+                            Image image = new Image(image_url);
+                            ImageView imageView = new ImageView(image);
+                            imageView.setFitWidth(150);
+                            imageView.setFitHeight(200);
 
-                        setGraphic(imageView);
-                        setText(game.listViewDisplay_Game());
+                            setGraphic(imageView);
+                            setText(game.listViewDisplay_Game());
+
+                        if(game.getName().toLowerCase(Locale.ROOT).equals(SearchBar.getText().toLowerCase(Locale.ROOT)))
+                        {
+
+                            imageView.setFitWidth(150);
+                            imageView.setFitHeight(200);
+
+                            setGraphic(imageView);
+                            setText(game.listViewDisplay_Game());
+                        }
                     }
                 }
             });
@@ -107,38 +119,34 @@ public class HomeController implements Initializable {
 
     // FXML functions
 
-    // Display game information
+    // Search bar
 
+
+
+    // Open stage code - View Game Info
     @FXML
-    protected void onClickListViewCell_Games(Event event)
-    {
-        Alert infoAlert = new Alert(Alert.AlertType.INFORMATION);
+    public void openGameInfo(Event event){
+        Parent root;
+        FXMLLoader loader;
+        try {
 
-        infoAlert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
-        infoAlert.setTitle("Game Information");
-        infoAlert.setHeaderText(null);
+            loader = new FXMLLoader(getClass().getClassLoader().getResource("GameStore/FXMLs/GameStoreViewGame.fxml"));
+            root = (Parent) loader.load();
 
-        GridPane grid = new GridPane();
-        ColumnConstraints graphicColumn = new ColumnConstraints();
-        graphicColumn.setFillWidth(false);
-        graphicColumn.setHgrow(Priority.NEVER);
-        grid.getColumnConstraints().setAll(graphicColumn);
-        grid.setPadding(new Insets(5));
-
-        Game game = (Game) ListViewGames.getSelectionModel().getSelectedItem();
-
-        Image image = new Image(game.getImageLink());
-        ImageView imageView = new ImageView(image);
-
-        imageView.setFitHeight(128);
-        imageView.setFitWidth(128);
-
-        StackPane stackPane = new StackPane(imageView);
-        stackPane.setAlignment(Pos.CENTER_RIGHT);
-        grid.add(stackPane, 0, 0);
+            ViewGameController controller = (ViewGameController) loader.getController();
+            controller.setData(games_obs);
 
 
-        infoAlert.setContentText(game.listViewDisplay_Game());
-        infoAlert.showAndWait();
+            Stage stage = new Stage();
+            stage.setTitle("Game Information");
+            stage.setScene(new Scene(root, 800, 450));
+            stage.show();
+
+          //  ((Node)(event.getSource())).getScene().getWindow().hide();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
 }

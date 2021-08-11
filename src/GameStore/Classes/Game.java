@@ -2,7 +2,6 @@ package GameStore.Classes;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import javafx.scene.image.Image;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -16,8 +15,14 @@ public class Game {
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private String Name;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private String Platform;
+
     @JsonFormat(shape = JsonFormat.Shape.NUMBER_FLOAT)
-    private Float Cost;
+    private Float BuyPrice;
+
+    @JsonFormat(shape = JsonFormat.Shape.NUMBER_FLOAT)
+    private Float SellPrice;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private String[] Genres;
@@ -38,27 +43,29 @@ public class Game {
     @JsonFormat(shape = JsonFormat.Shape.NUMBER_INT)
     private Integer AvailableCopies;
 
-    @JsonFormat(shape = JsonFormat.Shape.NUMBER_INT)
-    private Integer RentedCopies;
-
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private String ImageLink;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private String Description;
 
     public Game() {
     }
 
-    public Game(Integer id, String name, Float cost, String[] genres, String[] modes, Date releaseDate, String[] developers, String[] publishers, Integer availableCopies, Integer rentedCopies, String imageLink) {
+    public Game(Integer id, String name, String platform, Float buyPrice, Float sellPrice, String[] genres, String[] modes, Date releaseDate, String[] developers, String[] publishers, Integer availableCopies, String imageLink, String description) {
         Id = id;
         Name = name;
-        Cost = cost;
+        Platform = platform;
+        BuyPrice = buyPrice;
+        SellPrice = sellPrice;
         Genres = genres;
         Modes = modes;
         ReleaseDate = releaseDate;
         Developers = developers;
         Publishers = publishers;
         AvailableCopies = availableCopies;
-        RentedCopies = rentedCopies;
         ImageLink = imageLink;
+        Description = description;
     }
 
     public Integer getId() {
@@ -77,56 +84,20 @@ public class Game {
         Name = name;
     }
 
-    public Float getCost() {
-        return Cost;
+    public Float getBuyPrice() {
+        return BuyPrice;
     }
 
-    public void setCost(Float cost) {
-        Cost = cost;
+    public void setBuyPrice(Float buyPrice) {
+        BuyPrice = buyPrice;
     }
 
-    public Integer getAvailableCopies() {
-        return AvailableCopies;
+    public Float getSellPrice() {
+        return SellPrice;
     }
 
-    public void setAvailableCopies(Integer availableCopies) {
-        AvailableCopies = availableCopies;
-    }
-
-    public Integer getRentedCopies() {
-        return RentedCopies;
-    }
-
-    public void setRentedCopies(Integer rentedCopies) {
-        RentedCopies = rentedCopies;
-    }
-
-    public String[] getDevelopers() {
-        return Developers;
-    }
-
-    public void setDevelopers(String[] developers) {
-        Developers = developers;
-    }
-
-    public String[] getPublishers() {
-        return Publishers;
-    }
-
-    public void setPublishers(String[] publishers) {
-        Publishers = publishers;
-    }
-
-    public Date getReleaseDate() {
-        return ReleaseDate;
-    }
-
-    public void setReleaseDate(Date releaseDate) {
-        ReleaseDate = releaseDate;
-    }
-
-    public String getImageLink() {
-        return ImageLink;
+    public void setSellPrice(Float sellPrice) {
+        SellPrice = sellPrice;
     }
 
     public String[] getGenres() {
@@ -145,8 +116,60 @@ public class Game {
         Modes = modes;
     }
 
+    public Date getReleaseDate() {
+        return ReleaseDate;
+    }
+
+    public void setReleaseDate(Date releaseDate) {
+        ReleaseDate = releaseDate;
+    }
+
+    public String[] getDevelopers() {
+        return Developers;
+    }
+
+    public void setDevelopers(String[] developers) {
+        Developers = developers;
+    }
+
+    public String[] getPublishers() {
+        return Publishers;
+    }
+
+    public void setPublishers(String[] publishers) {
+        Publishers = publishers;
+    }
+
+    public Integer getAvailableCopies() {
+        return AvailableCopies;
+    }
+
+    public void setAvailableCopies(Integer availableCopies) {
+        AvailableCopies = availableCopies;
+    }
+
+    public String getImageLink() {
+        return ImageLink;
+    }
+
     public void setImageLink(String imageLink) {
         ImageLink = imageLink;
+    }
+
+    public String getDescription() {
+        return Description;
+    }
+
+    public void setDescription(String description) {
+        Description = description;
+    }
+
+    public String getPlatform() {
+        return Platform;
+    }
+
+    public void setPlatform(String platform) {
+        Platform = platform;
     }
 
     @Override
@@ -154,15 +177,17 @@ public class Game {
         return "Game{" +
                 "Id=" + Id +
                 ", Name='" + Name + '\'' +
-                ", Cost=" + Cost +
+                ", Platform='" + Platform + '\'' +
+                ", BuyPrice=" + BuyPrice +
+                ", SellPrice=" + SellPrice +
                 ", Genres=" + Arrays.toString(Genres) +
                 ", Modes=" + Arrays.toString(Modes) +
                 ", ReleaseDate=" + ReleaseDate +
                 ", Developers=" + Arrays.toString(Developers) +
                 ", Publishers=" + Arrays.toString(Publishers) +
                 ", AvailableCopies=" + AvailableCopies +
-                ", RentedCopies=" + RentedCopies +
                 ", ImageLink='" + ImageLink + '\'' +
+                ", Description='" + Description + '\'' +
                 '}';
     }
 
@@ -170,13 +195,14 @@ public class Game {
     {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         return "Title: " + Name +
-                "\nPrice: " + Cost +
+                "\nPlatform: " + Platform +
+                "\nWe sell for: " + SellPrice +
+                "\nWe buy for: " + BuyPrice +
                 "\nGenres: " + Arrays.toString(Genres) +
                 "\nModes: " + Arrays.toString(Modes) +
                 "\nRelease Date: " + formatter.format(ReleaseDate) +
                 "\nDevelopers: " + Arrays.toString(Developers) +
                 "\nPublishers: " + Arrays.toString(Publishers) +
-                "\n\nAvailable Copies: " + AvailableCopies +
-                "\nRented Copies: " + RentedCopies;
+                "\n\nAvailable Copies: " + AvailableCopies;
     }
 }
