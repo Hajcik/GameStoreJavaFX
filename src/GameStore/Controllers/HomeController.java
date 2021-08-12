@@ -122,6 +122,7 @@ public class HomeController implements Initializable {
     // Search bar
 
 
+    public Game game_data;
 
     // Open stage code - View Game Info
     @FXML
@@ -133,8 +134,34 @@ public class HomeController implements Initializable {
             loader = new FXMLLoader(getClass().getClassLoader().getResource("GameStore/FXMLs/GameStoreViewGame.fxml"));
             root = (Parent) loader.load();
 
-            ViewGameController controller = (ViewGameController) loader.getController();
-            controller.setData(games_obs);
+            ViewGameController viewGameController = (ViewGameController) loader.getController();
+            viewGameController.setData(games_obs);
+
+            game_data = (Game) ListViewGames.getSelectionModel().getSelectedItem();
+
+            String game_cover = game_data.getImageLink();
+            Image image = new Image(game_cover);
+
+            viewGameController.ImageViewCurrentGame.setImage(image);
+            viewGameController.SellPriceLabel.setText(game_data.getSellPrice().toString());
+            viewGameController.BuyPriceLabel.setText(game_data.getBuyPrice().toString());
+            viewGameController.GameNameLabel.setText(game_data.getName());
+            viewGameController.DescriptionLabel.setText(game_data.getDescription());
+
+            viewGameController.PlatformLabel.setText(game_data.getPlatform());
+
+            String tmp_devs = Arrays.toString(game_data.getDevelopers()).substring(1);
+            String tmp_pubs = Arrays.toString(game_data.getPublishers()).substring(1);
+            String tmp_modes = Arrays.toString(game_data.getModes()).substring(1);
+            String tmp_genres = Arrays.toString(game_data.getGenres()).substring(1);
+
+            viewGameController.ModesLabel.setText(tmp_modes.substring(0, tmp_modes.length()-1));
+            viewGameController.GenresLabel.setText(tmp_genres.substring(0, tmp_genres.length()-1));
+            viewGameController.DevelopersLabel.setText(tmp_devs.substring(0, tmp_devs.length()-1));
+            viewGameController.PublishersLabel.setText(tmp_pubs.substring(0, tmp_pubs.length()-1));
+
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            viewGameController.ReleaseDateLabel.setText(formatter.format(game_data.getReleaseDate()));
 
 
             Stage stage = new Stage();

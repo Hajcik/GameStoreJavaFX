@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -20,7 +21,16 @@ public class ViewGameController implements Initializable {
     public Button SellGameButton;
     public Label BuyPriceLabel;
     public Label SellPriceLabel;
+    public Label GameNameLabel;
+    public Label PublishersLabel;
+    public Label DevelopersLabel;
+    public Label DescriptionLabel;
+    public Label ReleaseDateLabel;
+    public Label GenresLabel;
+    public Label ModesLabel;
+    public Label PlatformLabel;
     public ImageView ImageViewCurrentGame;
+    public TitledPane DescriptionTitledPane;
 
     private ObservableList<Game> games_data;
 
@@ -29,26 +39,17 @@ public class ViewGameController implements Initializable {
     }
 
 
-    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("GameStore/FXMLs/GameStoreMain.fxml"));
-    HomeController controller = (HomeController) loader.getController();
-
-    Game game = (Game) controller.ListViewGames.getSelectionModel().getSelectedItem();
-
-    // Load photo
-      String image_url = game.getImageLink();
-      Image image = new Image(image_url);
-
-  //    ImageViewCurrentGame.setImage(image);
-
-
-
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("GameStore/FXMLs/GameStoreMain.fxml"));
+        HomeController homeController = (HomeController) loader.getController();
+
+        DescriptionTitledPane.setExpanded(false);
+
+    //    String game_cover = homeController.game_data.getImageLink();
+    //    Image game_image = new Image(game_cover);
+
+    //    ImageViewCurrentGame.setImage(game_image);
 
     }
-
-
-
-
 }

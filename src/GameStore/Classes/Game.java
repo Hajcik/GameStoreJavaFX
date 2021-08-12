@@ -174,6 +174,7 @@ public class Game {
 
     @Override
     public String toString() {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         return "Game{" +
                 "Id=" + Id +
                 ", Name='" + Name + '\'' +
@@ -182,7 +183,7 @@ public class Game {
                 ", SellPrice=" + SellPrice +
                 ", Genres=" + Arrays.toString(Genres) +
                 ", Modes=" + Arrays.toString(Modes) +
-                ", ReleaseDate=" + ReleaseDate +
+                ", ReleaseDate=" + formatter.format(ReleaseDate) +
                 ", Developers=" + Arrays.toString(Developers) +
                 ", Publishers=" + Arrays.toString(Publishers) +
                 ", AvailableCopies=" + AvailableCopies +
@@ -194,15 +195,9 @@ public class Game {
     public String listViewDisplay_Game()
     {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        return "Title: " + Name +
-                "\nPlatform: " + Platform +
+        return   Name + "  (" + Platform + ")" +
                 "\nWe sell for: " + SellPrice +
                 "\nWe buy for: " + BuyPrice +
-                "\nGenres: " + Arrays.toString(Genres) +
-                "\nModes: " + Arrays.toString(Modes) +
-                "\nRelease Date: " + formatter.format(ReleaseDate) +
-                "\nDevelopers: " + Arrays.toString(Developers) +
-                "\nPublishers: " + Arrays.toString(Publishers) +
-                "\n\nAvailable Copies: " + AvailableCopies;
+                "\nRelease Date: " + formatter.format(ReleaseDate);
     }
 }
