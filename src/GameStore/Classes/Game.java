@@ -196,8 +196,8 @@ public class Game {
     {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         return   Name + "  (" + Platform + ")" +
-                "\nWe sell for: " + SellPrice +
-                "\nWe buy for: " + BuyPrice +
+                "\nWe sell for: " + SellPrice + " PLN" +
+                "\nWe buy for: " + BuyPrice + " PLN" +
                 "\nRelease Date: " + formatter.format(ReleaseDate);
     }
 }

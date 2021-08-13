@@ -8,57 +8,87 @@
 <AnchorPane prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GameStore.Controllers.ViewGameController">
    <children>
       <ImageView fx:id="ImageViewCurrentGame" fitHeight="248.0" fitWidth="192.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
-      <Button fx:id="BuyGameButton" layoutX="467.0" layoutY="95.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="310.0" text="Buy Game" />
-      <Button fx:id="SellGameButton" layoutX="467.0" layoutY="54.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="310.0" text="Sell Game" />
-      <Label layoutX="237.0" layoutY="58.0" text="We sell for:">
+      <Button fx:id="BuyGameButton" layoutX="519.0" layoutY="109.0" mnemonicParsing="false" onAction="#buyGameButtonAction" prefHeight="34.0" prefWidth="258.0" style="-fx-background-color: #ab4a0a;" text="Buy Game" textOverrun="WORD_ELLIPSIS">
          <font>
-            <Font name="Helonia" size="14.0" />
-         </font></Label>
-      <Label layoutX="237.0" layoutY="99.0" text="We buy for:">
+            <Font name="Impact" size="17.0" />
+         </font></Button>
+      <Button fx:id="SellGameButton" layoutX="519.0" layoutY="54.0" mnemonicParsing="false" onAction="#sellGameButtonAction" prefHeight="34.0" prefWidth="258.0" style="-fx-background-color: #0ca62d;" text="Sell Game" textOverrun="WORD_ELLIPSIS">
          <font>
-            <Font name="Helonia" size="14.0" />
+            <Font name="Impact" size="17.0" />
+         </font></Button>
+      <Label layoutX="216.0" layoutY="57.0" text="We sell for:">
+         <font>
+            <Font name="Helonia Italic" size="23.0" />
          </font></Label>
-      <Label fx:id="SellPriceLabel" layoutX="330.0" layoutY="58.0" text="SELLPRICE" />
-      <Label fx:id="BuyPriceLabel" layoutX="331.0" layoutY="99.0" text="BUYPRICE" />
-      <Label fx:id="GameNameLabel" layoutX="237.0" layoutY="14.0" text="NameLabel">
+      <Label layoutX="217.0" layoutY="115.0" text="We buy for:">
+         <font>
+            <Font name="Helonia Italic" size="23.0" />
+         </font></Label>
+      <Label fx:id="SellPriceLabel" layoutX="350.0" layoutY="59.0" prefHeight="25.0" prefWidth="155.0" text="SELLPRICE">
+         <font>
+            <Font name="Helonia" size="20.0" />
+         </font></Label>
+      <Label fx:id="BuyPriceLabel" layoutX="350.0" layoutY="116.0" prefHeight="25.0" prefWidth="155.0" text="BUYPRICE">
+         <font>
+            <Font name="Helonia" size="20.0" />
+         </font></Label>
+      <Label fx:id="GameNameLabel" layoutX="216.0" layoutY="13.0" text="NameLabel">
          <font>
             <Font name="Helonia Bold" size="21.0" />
          </font></Label>
-      <Label fx:id="PlatformLabel" layoutX="331.0" layoutY="166.0" text="Platform" />
-      <Label fx:id="ReleaseDateLabel" layoutX="352.0" layoutY="137.0" text="ReleaseDate" />
-      <Label fx:id="GenresLabel" layoutX="338.0" layoutY="196.0" text="Genres" />
-      <Label fx:id="ModesLabel" layoutX="338.0" layoutY="224.0" text="Modes" />
-      <Label fx:id="DevelopersLabel" layoutX="565.0" layoutY="194.0" text="Devs" />
-      <Label fx:id="PublishersLabel" layoutX="558.0" layoutY="166.0" text="Publishers" />
-      <Label layoutX="225.0" layoutY="164.0" prefHeight="20.0" prefWidth="80.0" text="Platform:">
+      <Label fx:id="PlatformLabel" layoutX="520.0" layoutY="308.0" prefHeight="16.0" prefWidth="205.0" text="Platform">
+         <font>
+            <Font name="Helonia" size="13.0" />
+         </font></Label>
+      <Label fx:id="ReleaseDateLabel" layoutX="520.0" layoutY="279.0" prefHeight="16.0" prefWidth="181.0" text="ReleaseDate">
+         <font>
+            <Font name="Helonia" size="13.0" />
+         </font></Label>
+      <Label fx:id="GenresLabel" alignment="TOP_LEFT" layoutX="520.0" layoutY="377.0" prefHeight="54.0" prefWidth="192.0" text="Genres">
+         <font>
+            <Font name="Helonia" size="13.0" />
+         </font></Label>
+      <Label fx:id="ModesLabel" alignment="TOP_LEFT" layoutX="520.0" layoutY="336.0" prefHeight="34.0" prefWidth="205.0" text="Modes">
+         <font>
+            <Font name="Helonia" size="13.0" />
+         </font></Label>
+      <Label fx:id="DevelopersLabel" layoutX="335.0" layoutY="195.0" prefHeight="16.0" prefWidth="441.0" text="Devs">
+         <font>
+            <Font name="Helonia" size="13.0" />
+         </font></Label>
+      <Label fx:id="PublishersLabel" layoutX="336.0" layoutY="167.0" prefHeight="16.0" prefWidth="441.0" text="Publishers">
+         <font>
+            <Font name="Helonia" size="13.0" />
+         </font></Label>
+      <Label layoutX="400.0" layoutY="306.0" prefHeight="20.0" prefWidth="99.0" text="Platform:">
          <font>
             <Font name="Helonia" size="16.0" />
          </font></Label>
-      <Label layoutX="228.0" layoutY="194.0" prefHeight="20.0" prefWidth="71.0" text="Genres:">
+      <Label layoutX="400.0" layoutY="375.0" prefHeight="20.0" prefWidth="99.0" text="Genres:">
          <font>
             <Font name="Helonia" size="16.0" />
          </font></Label>
-      <Label layoutX="229.0" layoutY="222.0" prefHeight="20.0" prefWidth="65.0" text="Modes:">
+      <Label layoutX="400.0" layoutY="334.0" prefHeight="20.0" prefWidth="65.0" text="Modes:">
          <font>
             <Font name="Helonia" size="16.0" />
          </font></Label>
-      <Label layoutX="225.0" layoutY="135.0" prefHeight="20.0" prefWidth="113.0" text="Release Date:">
+      <Label layoutX="400.0" layoutY="277.0" prefHeight="20.0" prefWidth="113.0" text="Release Date:">
          <font>
             <Font name="Helonia" size="16.0" />
          </font></Label>
-      <Label layoutX="467.0" layoutY="192.0" text="Developers:">
+      <Label layoutX="215.0" layoutY="192.0" text="Developers:">
          <font>
             <Font name="Helonia" size="16.0" />
          </font></Label>
-      <Label layoutX="467.0" layoutY="164.0" text="Publishers:">
+      <Label layoutX="215.0" layoutY="164.0" text="Publishers:">
          <font>
             <Font name="Helonia" size="16.0" />
          </font></Label>
-      <TitledPane fx:id="DescriptionTitledPane" animated="false" layoutX="12.0" layoutY="277.0" prefHeight="154.0" prefWidth="381.0" text="Description">
+      <TitledPane fx:id="DescriptionTitledPane" animated="false" layoutX="12.0" layoutY="277.0" prefHeight="154.0" prefWidth="368.0" text="Description">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="200.0">
                <children>
-                  <Label fx:id="DescriptionLabel" layoutX="8.0" layoutY="14.0" text="Description" />
+                  <Label fx:id="DescriptionLabel" alignment="TOP_LEFT" layoutX="3.0" layoutY="3.0" prefHeight="121.0" prefWidth="359.0" text="Description" />
                </children></AnchorPane>
         </content>
       </TitledPane>

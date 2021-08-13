@@ -16,7 +16,7 @@
          <children>
             <Button layoutX="837.0" layoutY="700.0" mnemonicParsing="false" text="Controls" />
             <Button layoutX="926.0" layoutY="731.0" mnemonicParsing="false" text="Exit" />
-            <ListView fx:id="ListViewGames" layoutX="15.0" layoutY="212.0" onMouseClicked="#openGameInfo" prefHeight="453.0" prefWidth="986.0" />
+            <ListView fx:id="ListViewGames" layoutX="15.0" layoutY="212.0" onMouseClicked="#openGameInfo" prefHeight="453.0" prefWidth="986.0" stylesheets="@../Resources/CSS/ListViewGamesStyle.css" />
             <TextField fx:id="SearchBar" layoutX="15.0" layoutY="150.0" prefHeight="40.0" prefWidth="546.0" />
             <Button fx:id="SearchButton" layoutX="572.0" layoutY="150.0" mnemonicParsing="false" prefHeight="16.0" prefWidth="61.0" text="🔍">
                <font>

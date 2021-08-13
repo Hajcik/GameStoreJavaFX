@@ -34,10 +34,15 @@ public class HomeController implements Initializable {
 
     public ListView ListViewGames;
 
+    public void Styling_ListViewGames()
+    {
+        ListViewGames.setStyle(".list-cell{-fx-font-size:20.0;");
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        Styling_ListViewGames();
         loadDataJSON();
 
         Thread thread = new Thread( () -> {
@@ -90,8 +95,8 @@ public class HomeController implements Initializable {
                             String image_url = game.getImageLink();
                             Image image = new Image(image_url);
                             ImageView imageView = new ImageView(image);
-                            imageView.setFitWidth(150);
-                            imageView.setFitHeight(200);
+                            imageView.setFitWidth(120);
+                            imageView.setFitHeight(180);
 
                             setGraphic(imageView);
                             setText(game.listViewDisplay_Game());
@@ -143,8 +148,8 @@ public class HomeController implements Initializable {
             Image image = new Image(game_cover);
 
             viewGameController.ImageViewCurrentGame.setImage(image);
-            viewGameController.SellPriceLabel.setText(game_data.getSellPrice().toString());
-            viewGameController.BuyPriceLabel.setText(game_data.getBuyPrice().toString());
+            viewGameController.SellPriceLabel.setText(game_data.getSellPrice().toString() + " PLN");
+            viewGameController.BuyPriceLabel.setText(game_data.getBuyPrice().toString() + " PLN");
             viewGameController.GameNameLabel.setText(game_data.getName());
             viewGameController.DescriptionLabel.setText(game_data.getDescription());
 
@@ -164,16 +169,31 @@ public class HomeController implements Initializable {
             viewGameController.ReleaseDateLabel.setText(formatter.format(game_data.getReleaseDate()));
 
 
+
+
             Stage stage = new Stage();
             stage.setTitle("Game Information");
             stage.setScene(new Scene(root, 800, 450));
+            stage.setResizable(false);
             stage.show();
+
+
 
           //  ((Node)(event.getSource())).getScene().getWindow().hide();
         }
         catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public int availableCopies_sell()
+    {
+        return game_data.getAvailableCopies()+1;
+    }
+
+    public int availableCopies_buy()
+    {
+        return game_data.getAvailableCopies()-1;
     }
 
 }
