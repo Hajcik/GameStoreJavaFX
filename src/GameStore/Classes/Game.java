@@ -9,9 +9,6 @@ import java.util.Date;
 
 public class Game {
 
-    @JsonFormat(shape = JsonFormat.Shape.NUMBER_INT)
-    private Integer Id;
-
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private String Name;
 
@@ -52,8 +49,7 @@ public class Game {
     public Game() {
     }
 
-    public Game(Integer id, String name, String platform, Float buyPrice, Float sellPrice, String[] genres, String[] modes, Date releaseDate, String[] developers, String[] publishers, Integer availableCopies, String imageLink, String description) {
-        Id = id;
+    public Game(String name, String platform, Float buyPrice, Float sellPrice, String[] genres, String[] modes, Date releaseDate, String[] developers, String[] publishers, Integer availableCopies, String imageLink, String description) {
         Name = name;
         Platform = platform;
         BuyPrice = buyPrice;
@@ -68,13 +64,6 @@ public class Game {
         Description = description;
     }
 
-    public Integer getId() {
-        return Id;
-    }
-
-    public void setId(Integer id) {
-        Id = id;
-    }
 
     public String getName() {
         return Name;
@@ -174,16 +163,14 @@ public class Game {
 
     @Override
     public String toString() {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         return "Game{" +
-                "Id=" + Id +
-                ", Name='" + Name + '\'' +
+                "Name='" + Name + '\'' +
                 ", Platform='" + Platform + '\'' +
                 ", BuyPrice=" + BuyPrice +
                 ", SellPrice=" + SellPrice +
                 ", Genres=" + Arrays.toString(Genres) +
                 ", Modes=" + Arrays.toString(Modes) +
-                ", ReleaseDate=" + formatter.format(ReleaseDate) +
+                ", ReleaseDate=" + ReleaseDate +
                 ", Developers=" + Arrays.toString(Developers) +
                 ", Publishers=" + Arrays.toString(Publishers) +
                 ", AvailableCopies=" + AvailableCopies +

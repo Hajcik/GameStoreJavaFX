@@ -32,10 +32,15 @@ public class ViewGameController implements Initializable {
     public TitledPane DescriptionTitledPane;
 
     private ObservableList<Game> games_data;
+    private Game game_data;
+    private HomeController homeController;
 
     public void setData(ObservableList<Game> games_data){
         this.games_data = games_data;
     }
+    public void setGame(Game game) {this.game_data = game;}
+
+    public void setHomeController(HomeController homeController) {this.homeController = homeController;}
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -62,8 +67,8 @@ public class ViewGameController implements Initializable {
     {
         Alert sellingGameInfo = new Alert(Alert.AlertType.CONFIRMATION);
         Alert soldGameInfo = new Alert(Alert.AlertType.INFORMATION);
-        sellingGameInfo.setHeaderText("You are selling " + "gameController" + ",\nyou'll receive "
-        + "priceController" + ".");
+        sellingGameInfo.setHeaderText("You are selling " + game_data.getName() + ",\nyou'll receive "
+        + game_data.getBuyPrice() + " PLN. Are you sure?");
         sellingGameInfo.setTitle("Selling Game");
 
         result = sellingGameInfo.showAndWait();
@@ -71,23 +76,12 @@ public class ViewGameController implements Initializable {
         if(result.get() == ButtonType.OK)
         {
             soldGameInfo.setTitle("Selling successful!");
-            soldGameInfo.setHeaderText("You successfully sold blabal...");
+            soldGameInfo.setHeaderText("You successfully sold " + game_data.getName() + "!");
+            game_data.setAvailableCopies(game_data.getAvailableCopies()+1);
 
-            Parent root;
-            FXMLLoader loader;
+            System.out.println(game_data.getAvailableCopies());
 
-            try {
-                loader = new FXMLLoader(getClass().getClassLoader().getResource("GameStore/FXMLs/GameStoreViewGame.fxml"));
-                root = (Parent) loader.load();
 
-                HomeController homeController = (HomeController) loader.getController();
-                homeController.game_data.setAvailableCopies(homeController.game_data.getAvailableCopies()+1);
-
-            } catch (IOException e)
-            {
-                e.printStackTrace();
-            }
-            // i don't know how to + / - values in other controller...
             soldGameInfo.showAndWait();
         }
 

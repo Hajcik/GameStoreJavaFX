@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -80,7 +82,8 @@ public class HomeController implements Initializable {
             games_obs = FXCollections.observableArrayList(games);
             clients_obs = FXCollections.observableArrayList(clients);
 
-            ListViewGames.setItems(games_obs);
+
+            ListViewGames.setItems(games_obs.sorted());
             ListViewGames.setCellFactory(param -> new ListCell<Game>(){
                 @Override
                 protected void updateItem(Game game, boolean empty) {
@@ -91,25 +94,17 @@ public class HomeController implements Initializable {
                         setText(null);
                         setGraphic(null);
 
-                    } else if (SearchBar.getText().isEmpty()){
-                            String image_url = game.getImageLink();
-                            Image image = new Image(image_url);
-                            ImageView imageView = new ImageView(image);
-                            imageView.setFitWidth(120);
-                            imageView.setFitHeight(180);
+                    } else if (SearchBar.getText().isEmpty() ||
+                            game.getPlatform().toLowerCase(Locale.ROOT).contains(SearchBar.getText().toLowerCase(Locale.ROOT)) ||
+                            game.getName().toLowerCase(Locale.ROOT).contains(SearchBar.getText().toLowerCase(Locale.ROOT))) {
+                        String image_url = game.getImageLink();
+                        Image image = new Image("file:" + image_url);
+                        ImageView imageView = new ImageView(image);
+                        imageView.setFitWidth(150);
+                        imageView.setFitHeight(200);
 
-                            setGraphic(imageView);
-                            setText(game.listViewDisplay_Game());
-
-                        if(game.getName().toLowerCase(Locale.ROOT).equals(SearchBar.getText().toLowerCase(Locale.ROOT)))
-                        {
-
-                            imageView.setFitWidth(150);
-                            imageView.setFitHeight(200);
-
-                            setGraphic(imageView);
-                            setText(game.listViewDisplay_Game());
-                        }
+                        setGraphic(imageView);
+                        setText(game.listViewDisplay_Game());
                     }
                 }
             });
@@ -123,9 +118,6 @@ public class HomeController implements Initializable {
     }
 
     // FXML functions
-
-    // Search bar
-
 
     public Game game_data;
 
@@ -142,10 +134,13 @@ public class HomeController implements Initializable {
             ViewGameController viewGameController = (ViewGameController) loader.getController();
             viewGameController.setData(games_obs);
 
+            // set HomeController for ViewGameController.java ??
+
             game_data = (Game) ListViewGames.getSelectionModel().getSelectedItem();
+            viewGameController.setGame(game_data);
 
             String game_cover = game_data.getImageLink();
-            Image image = new Image(game_cover);
+            Image image = new Image("file:"+game_cover);
 
             viewGameController.ImageViewCurrentGame.setImage(image);
             viewGameController.SellPriceLabel.setText(game_data.getSellPrice().toString() + " PLN");
@@ -186,14 +181,24 @@ public class HomeController implements Initializable {
         }
     }
 
-    public int availableCopies_sell()
+    public Button exitButton;
+    public Button aboutButton;
+
+    public void aboutInfo()
     {
-        return game_data.getAvailableCopies()+1;
+        Alert aboutAlert = new Alert(Alert.AlertType.INFORMATION);
+        aboutAlert.setTitle("About the app");
+        aboutAlert.setHeaderText("Easy Peasy Games App");
+        aboutAlert.setContentText("Author: Mariusz Jędrzejewski\n" +
+                "About: Application provides ability to buy or sell games.\n" +
+                "It's constructed to make it easy. Select / Search for the game\n" +
+                "you are interested in and choose if you want to buy it, or you have it for sale!");
+        aboutAlert.showAndWait();
     }
 
-    public int availableCopies_buy()
+    public void exitApp()
     {
-        return game_data.getAvailableCopies()-1;
+        System.exit(0);
     }
 
 }

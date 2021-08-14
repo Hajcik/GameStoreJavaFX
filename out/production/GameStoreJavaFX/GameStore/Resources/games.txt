@@ -9,7 +9,7 @@
     "ReleaseDate": "21-08-2012",
     "Developers": ["Valve Corporation, Hidden Path Entertainment"],
     "Publishers": ["Valve Corporation"],
-    "AvailableCopies": 0,
+    "AvailableCopies": 50,
     "ImageLink": "src/GameStore/Resources/img/GameCovers/csgo.jpg",
     "Description": "Counter-Strike: Global Offensive (CS: GO) expands upon the team-based action gameplay that it pioneered when it was launched 19 years ago. CS: GO features new maps, characters, weapons, and game modes, and delivers updated versions of the classic CS content (de_dust2, etc.)."
   },
@@ -82,5 +82,19 @@
     "AvailableCopies": 20,
     "ImageLink": "src/GameStore/Resources/img/GameCovers/ACOriginsXbox.jpg",
     "Description": "Assassin's Creed® Origins uncovers the beginning of the Brotherhood. Fight in epic battles, master a completely reinvented combat system, and explore the entirety of Egypt. With the all-new quest system, complete missions in any order you choose, and follow your own path to greatness."
+  },
+  {
+    "Name": "Counter-Strike: Global Offensive",
+    "Platform": "PC",
+    "BuyPrice": 29.99,
+    "SellPrice": 49.99,
+    "Genres": ["Action", "First-person shooter", "Tactical"],
+    "Modes": ["Single-player", "Multi-player"],
+    "ReleaseDate": "21-08-2012",
+    "Developers": ["Valve Corporation, Hidden Path Entertainment"],
+    "Publishers": ["Valve Corporation"],
+    "AvailableCopies": 50,
+    "ImageLink": "src/GameStore/Resources/img/GameCovers/csgo.jpg",
+    "Description": "Action filled FPS!"
   }
 ]

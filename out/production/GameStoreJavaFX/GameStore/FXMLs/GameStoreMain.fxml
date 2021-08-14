@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane alignment="center" hgap="10" prefHeight="891.0" prefWidth="1026.0" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GameStore.Controllers.HomeController">
+<GridPane alignment="center" hgap="10" prefHeight="850.0" prefWidth="900.0" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GameStore.Controllers.HomeController">
    <columnConstraints>
       <ColumnConstraints />
    </columnConstraints>
@@ -12,17 +13,28 @@
       <RowConstraints />
    </rowConstraints>
    <children>
-      <Pane prefHeight="863.0" prefWidth="1022.0">
+      <Pane prefHeight="850.0" prefWidth="900.0">
          <children>
-            <Button layoutX="837.0" layoutY="700.0" mnemonicParsing="false" text="Controls" />
-            <Button layoutX="926.0" layoutY="731.0" mnemonicParsing="false" text="Exit" />
-            <ListView fx:id="ListViewGames" layoutX="15.0" layoutY="212.0" onMouseClicked="#openGameInfo" prefHeight="453.0" prefWidth="986.0" stylesheets="@../Resources/CSS/ListViewGamesStyle.css" />
-            <TextField fx:id="SearchBar" layoutX="15.0" layoutY="150.0" prefHeight="40.0" prefWidth="546.0" />
-            <Button fx:id="SearchButton" layoutX="572.0" layoutY="150.0" mnemonicParsing="false" prefHeight="16.0" prefWidth="61.0" text="🔍">
+            <Button layoutX="98.0" layoutY="740.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="78.0" text="Controls" />
+            <Button fx:id="exitButton" layoutX="813.0" layoutY="14.0" mnemonicParsing="false" onAction="#exitApp" prefHeight="25.0" prefWidth="78.0" text="Exit" />
+            <ListView fx:id="ListViewGames" layoutX="41.0" layoutY="353.0" onMouseClicked="#openGameInfo" prefHeight="347.0" prefWidth="812.0" stylesheets="@../Resources/CSS/ListViewGamesStyle.css" />
+            <TextField fx:id="SearchBar" layoutX="98.0" layoutY="308.0" onAction="#loadDataJSON" prefHeight="40.0" prefWidth="629.0" />
+            <Button fx:id="SearchButton" layoutX="741.0" layoutY="308.0" mnemonicParsing="false" onAction="#loadDataJSON" prefHeight="16.0" prefWidth="61.0" text="🔍">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
+            <ImageView fitHeight="253.0" fitWidth="705.0" layoutX="98.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Resources/img/banner.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="98.0" layoutY="285.0" text="Search for a game">
+               <font>
+                  <Font name="Helonia Italic" size="14.0" />
+               </font>
+            </Label>
+            <Button fx:id="aboutButton" layoutX="213.0" layoutY="740.0" mnemonicParsing="false" onAction="#aboutInfo" text="About" />
          </children></Pane>
    </children>
 </GridPane>
