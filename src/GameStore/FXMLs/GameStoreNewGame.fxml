@@ -7,20 +7,41 @@
 
 <AnchorPane prefHeight="450.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GameStore.Controllers.NewGameController">
    <children>
-      <TextField fx:id="GameNameTextField" layoutX="162.0" layoutY="15.0" prefHeight="35.0" prefWidth="232.0" promptText="Insert game name..." />
-      <TextField fx:id="GenresTextField" layoutX="163.0" layoutY="50.0" prefHeight="35.0" prefWidth="232.0" promptText="Insert game genres..." />
-      <TextField fx:id="ModesTextField" layoutX="163.0" layoutY="85.0" prefHeight="35.0" prefWidth="232.0" promptText="Insert game modes..." />
-      <TextField fx:id="DevelopersTextField" layoutX="163.0" layoutY="120.0" prefHeight="35.0" prefWidth="232.0" promptText="Insert game developers..." />
-      <TextField fx:id="PublishersTextField" layoutX="163.0" layoutY="155.0" prefHeight="35.0" prefWidth="232.0" promptText="Insert game publishers..." />
-      <DatePicker fx:id="ReleaseDateDatePicker" layoutX="163.0" layoutY="192.0" prefHeight="35.0" prefWidth="232.0" promptText="Choose game's release date..." />
+      <TextField fx:id="GameNameTextField" layoutX="162.0" layoutY="15.0" prefHeight="35.0" prefWidth="232.0" promptText="Insert game name...">
+         <font>
+            <Font name="Helonia" size="14.0" />
+         </font></TextField>
+      <TextField fx:id="GenresTextField" layoutX="163.0" layoutY="50.0" prefHeight="35.0" prefWidth="232.0" promptText="E.g. Action,Stylish...">
+         <font>
+            <Font name="Helonia" size="14.0" />
+         </font></TextField>
+      <TextField fx:id="ModesTextField" layoutX="163.0" layoutY="85.0" prefHeight="35.0" prefWidth="232.0" promptText="E.g. Single-player,MOBA...">
+         <font>
+            <Font name="Helonia" size="14.0" />
+         </font></TextField>
+      <TextField fx:id="DevelopersTextField" layoutX="163.0" layoutY="120.0" prefHeight="35.0" prefWidth="232.0" promptText="Insert game developers...">
+         <font>
+            <Font name="Helonia" size="14.0" />
+         </font></TextField>
+      <TextField fx:id="PublishersTextField" layoutX="163.0" layoutY="155.0" prefHeight="35.0" prefWidth="232.0" promptText="Insert game publishers...">
+         <font>
+            <Font name="Helonia" size="14.0" />
+         </font></TextField>
+      <DatePicker fx:id="ReleaseDateDatePicker" editable="false" layoutX="163.0" layoutY="192.0" prefHeight="35.0" prefWidth="232.0" promptText="Choose game's release date..." />
       <TextField fx:id="AvailableCopiesTextField" alignment="CENTER" layoutX="201.0" layoutY="238.0" prefHeight="35.0" prefWidth="79.0" text="0">
          <font>
             <Font size="18.0" />
          </font>
       </TextField>
       <ComboBox fx:id="PlatformComboBox" layoutX="165.0" layoutY="288.0" prefHeight="39.0" prefWidth="232.0" promptText="Choose platform..." />
-      <TextField fx:id="BuyPriceTextField" layoutX="555.0" layoutY="20.0" prefHeight="35.0" prefWidth="126.0" promptText="Set price we get..." />
-      <TextField fx:id="SellPriceTextField" layoutX="555.0" layoutY="63.0" prefHeight="35.0" prefWidth="126.0" promptText="Set price client get..." />
+      <TextField fx:id="BuyPriceTextField" layoutX="555.0" layoutY="20.0" prefHeight="35.0" prefWidth="126.0" promptText="Set price we get..." text="0.00">
+         <font>
+            <Font size="16.0" />
+         </font></TextField>
+      <TextField fx:id="SellPriceTextField" layoutX="555.0" layoutY="63.0" prefHeight="35.0" prefWidth="126.0" promptText="Set price client get..." text="0.00">
+         <font>
+            <Font size="16.0" />
+         </font></TextField>
       <Button fx:id="ChooseImageButton" layoutX="505.0" layoutY="139.0" mnemonicParsing="false" onAction="#open_img" prefHeight="25.0" prefWidth="120.0" text="Choose image..." />
       <Label layoutY="20.0" prefHeight="26.0" prefWidth="155.0" text="Game Name">
          <font>
