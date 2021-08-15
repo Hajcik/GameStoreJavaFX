@@ -25,6 +25,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
@@ -117,9 +118,38 @@ public class HomeController implements Initializable {
         }
     }
 
+
     // FXML functions
 
     public Game game_data;
+
+    // Add New Game
+    @FXML
+    public void onOpenDialog_AddNewGame(Event event)
+    {
+        Parent root;
+        FXMLLoader loader;
+        try {
+            loader = new FXMLLoader(getClass().getClassLoader().getResource("GameStore/FXMLs/GameStoreNewGame.fxml"));
+            root = (Parent) loader.load();
+
+            NewGameController newGameController = (NewGameController) loader.getController();
+            newGameController.setGame(game_data);
+            newGameController.setData(games_obs);
+
+            // Add platforms to Combobox
+
+
+            Stage stage = new Stage();
+            stage.setTitle("New Game Panel");
+            stage.setScene(new Scene(root, 700, 450));
+            stage.setResizable(false);
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     // Open stage code - View Game Info
     @FXML
@@ -147,7 +177,7 @@ public class HomeController implements Initializable {
             viewGameController.BuyPriceLabel.setText(game_data.getBuyPrice().toString() + " PLN");
             viewGameController.GameNameLabel.setText(game_data.getName());
             viewGameController.DescriptionLabel.setText(game_data.getDescription());
-
+            viewGameController.AvailableCopiesLabel.setText(game_data.getAvailableCopies().toString());
             viewGameController.PlatformLabel.setText(game_data.getPlatform());
 
             String tmp_devs = Arrays.toString(game_data.getDevelopers()).substring(1);
@@ -195,6 +225,7 @@ public class HomeController implements Initializable {
                 "you are interested in and choose if you want to buy it, or you have it for sale!");
         aboutAlert.showAndWait();
     }
+
 
     public void exitApp()
     {

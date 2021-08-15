@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="450.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GameStore.Controllers.NewGameController">
+   <children>
+      <TextField fx:id="GameNameTextField" layoutX="162.0" layoutY="15.0" prefHeight="35.0" prefWidth="232.0" promptText="Insert game name..." />
+      <TextField fx:id="GenresTextField" layoutX="163.0" layoutY="50.0" prefHeight="35.0" prefWidth="232.0" promptText="Insert game genres..." />
+      <TextField fx:id="ModesTextField" layoutX="163.0" layoutY="85.0" prefHeight="35.0" prefWidth="232.0" promptText="Insert game modes..." />
+      <TextField fx:id="DevelopersTextField" layoutX="163.0" layoutY="120.0" prefHeight="35.0" prefWidth="232.0" promptText="Insert game developers..." />
+      <TextField fx:id="PublishersTextField" layoutX="163.0" layoutY="155.0" prefHeight="35.0" prefWidth="232.0" promptText="Insert game publishers..." />
+      <DatePicker fx:id="ReleaseDateDatePicker" layoutX="163.0" layoutY="192.0" prefHeight="35.0" prefWidth="232.0" promptText="Choose game's release date..." />
+      <TextField fx:id="AvailableCopiesTextField" alignment="CENTER" layoutX="201.0" layoutY="238.0" prefHeight="35.0" prefWidth="79.0" text="0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </TextField>
+      <ComboBox fx:id="PlatformComboBox" layoutX="165.0" layoutY="288.0" prefHeight="39.0" prefWidth="232.0" promptText="Choose platform..." />
+      <TextField fx:id="BuyPriceTextField" layoutX="555.0" layoutY="20.0" prefHeight="35.0" prefWidth="126.0" promptText="Set price we get..." />
+      <TextField fx:id="SellPriceTextField" layoutX="555.0" layoutY="63.0" prefHeight="35.0" prefWidth="126.0" promptText="Set price client get..." />
+      <Button fx:id="ChooseImageButton" layoutX="505.0" layoutY="139.0" mnemonicParsing="false" onAction="#open_img" prefHeight="25.0" prefWidth="120.0" text="Choose image..." />
+      <Label layoutY="20.0" prefHeight="26.0" prefWidth="155.0" text="Game Name">
+         <font>
+            <Font name="Helonia" size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="3.0" layoutY="294.0" prefHeight="26.0" prefWidth="155.0" text="Platform">
+         <font>
+            <Font name="Helonia" size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="437.0" layoutY="20.0" text="Buy Price">
+         <font>
+            <Font name="Helonia" size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="438.0" layoutY="67.0" text="Sell Price">
+         <font>
+            <Font name="Helonia" size="22.0" />
+         </font>
+      </Label>
+      <Label layoutY="55.0" prefHeight="26.0" prefWidth="161.0" text="Genres">
+         <font>
+            <Font name="Helonia" size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="3.0" layoutY="90.0" prefHeight="26.0" prefWidth="155.0" text="Modes">
+         <font>
+            <Font name="Helonia" size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="4.0" layoutY="196.0" prefHeight="26.0" prefWidth="149.0" text="Release Date">
+         <font>
+            <Font name="Helonia" size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="2.0" layoutY="125.0" prefHeight="26.0" prefWidth="155.0" text="Developers">
+         <font>
+            <Font name="Helonia" size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="4.0" layoutY="160.0" prefHeight="26.0" prefWidth="120.0" text="Publishers">
+         <font>
+            <Font name="Helonia" size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="4.0" layoutY="238.0" text="Available Copies">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="502.0" layoutY="106.0" text="Cover Image">
+         <font>
+            <Font name="Helonia" size="22.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="PreviewImageView" fitHeight="262.0" fitWidth="200.0" layoutX="469.0" layoutY="176.0" pickOnBounds="true" preserveRatio="true" />
+      <Label layoutX="4.0" layoutY="343.0" text="Description">
+         <font>
+            <Font name="Helonia" size="22.0" />
+         </font>
+      </Label>
+      <Button fx:id="AddGameButton" layoutX="323.0" layoutY="243.0" mnemonicParsing="false" onAction="#setGameValues" prefHeight="25.0" prefWidth="64.0" text="Add" />
+      <TextArea fx:id="DescriptionTextArea" layoutX="166.0" layoutY="338.0" prefHeight="105.0" prefWidth="232.0" promptText="Insert game's description..." />
+   </children>
+</AnchorPane>

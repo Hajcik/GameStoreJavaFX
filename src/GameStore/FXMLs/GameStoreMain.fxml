@@ -15,11 +15,14 @@
    <children>
       <Pane prefHeight="850.0" prefWidth="900.0">
          <children>
-            <Button layoutX="98.0" layoutY="740.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="78.0" text="Controls" />
+            <Button fx:id="AddNewGameButton" layoutX="40.0" layoutY="713.0" mnemonicParsing="false" onAction="#onOpenDialog_AddNewGame" prefHeight="40.0" prefWidth="153.0" text="Add New Game">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font></Button>
             <Button fx:id="exitButton" layoutX="813.0" layoutY="14.0" mnemonicParsing="false" onAction="#exitApp" prefHeight="25.0" prefWidth="78.0" text="Exit" />
             <ListView fx:id="ListViewGames" layoutX="41.0" layoutY="353.0" onMouseClicked="#openGameInfo" prefHeight="347.0" prefWidth="812.0" stylesheets="@../Resources/CSS/ListViewGamesStyle.css" />
-            <TextField fx:id="SearchBar" layoutX="98.0" layoutY="308.0" onAction="#loadDataJSON" prefHeight="40.0" prefWidth="629.0" />
-            <Button fx:id="SearchButton" layoutX="741.0" layoutY="308.0" mnemonicParsing="false" onAction="#loadDataJSON" prefHeight="16.0" prefWidth="61.0" text="🔍">
+            <TextField fx:id="SearchBar" layoutX="41.0" layoutY="308.0" onAction="#loadDataJSON" prefHeight="40.0" prefWidth="612.0" />
+            <Button fx:id="SearchButton" layoutX="659.0" layoutY="308.0" mnemonicParsing="false" onAction="#loadDataJSON" prefHeight="40.0" prefWidth="68.0" text="🔍">
                <font>
                   <Font size="18.0" />
                </font>
@@ -29,12 +32,15 @@
                   <Image url="@../Resources/img/banner.png" />
                </image>
             </ImageView>
-            <Label layoutX="98.0" layoutY="285.0" text="Search for a game">
+            <Label layoutX="40.0" layoutY="286.0" text="Search for a game">
                <font>
                   <Font name="Helonia Italic" size="14.0" />
                </font>
             </Label>
-            <Button fx:id="aboutButton" layoutX="213.0" layoutY="740.0" mnemonicParsing="false" onAction="#aboutInfo" text="About" />
+            <Button fx:id="aboutButton" layoutX="743.0" layoutY="308.0" mnemonicParsing="false" onAction="#aboutInfo" prefHeight="40.0" prefWidth="108.0" text="About">
+               <font>
+                  <Font name="Helonia" size="18.0" />
+               </font></Button>
          </children></Pane>
    </children>
 </GridPane>

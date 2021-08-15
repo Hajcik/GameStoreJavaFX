@@ -28,6 +28,7 @@ public class ViewGameController implements Initializable {
     public Label GenresLabel;
     public Label ModesLabel;
     public Label PlatformLabel;
+    public Label AvailableCopiesLabel;
     public ImageView ImageViewCurrentGame;
     public TitledPane DescriptionTitledPane;
 
@@ -40,11 +41,9 @@ public class ViewGameController implements Initializable {
     }
     public void setGame(Game game) {this.game_data = game;}
 
-    public void setHomeController(HomeController homeController) {this.homeController = homeController;}
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
 
         DescriptionTitledPane.setExpanded(false);
         GenresLabel.setWrapText(true);
@@ -78,6 +77,7 @@ public class ViewGameController implements Initializable {
             soldGameInfo.setTitle("Selling successful!");
             soldGameInfo.setHeaderText("You successfully sold " + game_data.getName() + "!");
             game_data.setAvailableCopies(game_data.getAvailableCopies()+1);
+            AvailableCopiesLabel.setText(game_data.getAvailableCopies().toString());
 
             System.out.println(game_data.getAvailableCopies());
 
@@ -94,24 +94,36 @@ public class ViewGameController implements Initializable {
     @FXML
     public void buyGameButtonAction()
     {
-        Alert buyingGameInfo = new Alert(Alert.AlertType.CONFIRMATION);
+
         Alert boughtGameInfo = new Alert(Alert.AlertType.INFORMATION);
-        buyingGameInfo.setTitle("Buying Game");
-        buyingGameInfo.setHeaderText("You are buying " + "gameController" + "\nfor "
-                + "priceController" + ".");
 
-        Optional<ButtonType> result = buyingGameInfo.showAndWait();
-
-        if(result.get() == ButtonType.OK)
+        if(game_data.getAvailableCopies() == 0 || game_data.getAvailableCopies() < 0)
         {
-            boughtGameInfo.setTitle("Buying successful!");
-            boughtGameInfo.setHeaderText("You successfully bought blabal...");
-            boughtGameInfo.showAndWait();
+            Alert buyingGameInfo = new Alert(Alert.AlertType.INFORMATION);
+            buyingGameInfo.setTitle("Sorry!");
+            buyingGameInfo.setHeaderText("You can't buy " + game_data.getName() + ", no copies available.");
+            buyingGameInfo.showAndWait();
         }
+        else
+            {
+                Alert buyingGameInfo = new Alert(Alert.AlertType.CONFIRMATION);
+                buyingGameInfo.setTitle("Buying Game");
+                buyingGameInfo.setHeaderText("You are buying " + game_data.getName() + "\nfor "
+                    + game_data.getSellPrice() + ".");
 
-        if(result.get() == ButtonType.CANCEL)
-        {
-            boughtGameInfo.close();
+            Optional<ButtonType> result = buyingGameInfo.showAndWait();
+
+            if (result.get() == ButtonType.OK) {
+                boughtGameInfo.setTitle("Buying successful!");
+                boughtGameInfo.setHeaderText("You successfully bought " + game_data.getName() + "!");
+                game_data.setAvailableCopies(game_data.getAvailableCopies() - 1);
+                AvailableCopiesLabel.setText(game_data.getAvailableCopies().toString());
+                boughtGameInfo.showAndWait();
+            }
+
+            if (result.get() == ButtonType.CANCEL) {
+                boughtGameInfo.close();
+            }
         }
     }
 }

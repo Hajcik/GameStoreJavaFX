@@ -92,5 +92,15 @@
                </children></AnchorPane>
         </content>
       </TitledPane>
+      <Label layoutX="520.0" layoutY="167.0" text="Available Copies:">
+         <font>
+            <Font name="Helonia" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="AvailableCopiesLabel" layoutX="664.0" layoutY="167.0" text="Label">
+         <font>
+            <Font name="Helonia" size="15.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
