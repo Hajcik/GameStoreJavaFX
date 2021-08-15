@@ -1,7 +1,9 @@
 package GameStore.Controllers;
 
 import GameStore.Classes.Game;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -116,26 +118,36 @@ public class NewGameController implements Initializable {
 
         try {
             // object to json
-            ObjectMapper mapper = new ObjectMapper();
-            FileReader reader = new FileReader("src/GameStore/Resources/games.json");
-
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-
+            ObjectMapper mapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
+            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
             ObjectNode game_node = mapper.createObjectNode();
+
+            String tmp_genres = Arrays.toString(game.getGenres()).substring(1);
+            String tmp_modes = Arrays.toString(game.getModes()).substring(1);
+            String tmp_devs = Arrays.toString(game.getDevelopers()).substring(1);
+            String tmp_pubs = Arrays.toString(game.getPublishers()).substring(1);
+
+
             game_node.put("Name", game.getName());
             game_node.put("Platform", game.getPlatform());
             game_node.put("BuyPrice", game.getBuyPrice());
             game_node.put("SellPrice", game.getSellPrice());
-            game_node.put("Genres", Arrays.toString(game.getGenres()));
-            game_node.put("Modes", Arrays.toString(game.getModes()));
+            game_node.putArray("Genres").add(tmp_genres.substring(0, tmp_genres.length()-1));
+            game_node.putArray("Modes").add(tmp_modes.substring(0, tmp_modes.length()-1));
             game_node.put("ReleaseDate", formatter.format(game.getReleaseDate()));
-            game_node.put("Developers", Arrays.toString(game.getDevelopers()));
-            game_node.put("Publishers", Arrays.toString(game.getPublishers()));
+            game_node.putArray("Developers").add(tmp_devs.substring(0, tmp_devs.length()-1));
+            game_node.putArray("Publishers").add(tmp_pubs.substring(0, tmp_pubs.length()-1));
             game_node.put("AvailableCopies", game.getAvailableCopies());
             game_node.put("ImageLink", game.getImageLink());
             game_node.put("Description", game.getDescription());
 
             String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(game_node);
+
+            try {
+                mapper.writeValue(new File("src/GameStore/Resources/games.json"), game_node);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
             System.out.println(json);
 

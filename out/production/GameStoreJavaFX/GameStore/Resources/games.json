@@ -1,86 +1,16 @@
 [
-  {
-    "Name": "Counter-Strike: Global Offensive",
-    "Platform": "PC",
-    "BuyPrice": 29.99,
-    "SellPrice": 49.99,
-    "Genres": ["Action", "First-person shooter", "Tactical"],
-    "Modes": ["Single-player", "Multi-player"],
-    "ReleaseDate": "21-08-2012",
-    "Developers": ["Valve Corporation, Hidden Path Entertainment"],
-    "Publishers": ["Valve Corporation"],
-    "AvailableCopies": 0,
-    "ImageLink": "src/GameStore/Resources/img/GameCovers/csgo.jpg",
-    "Description": "Counter-Strike: Global Offensive (CS: GO) expands upon the team-based action gameplay that it pioneered when it was launched 19 years ago. CS: GO features new maps, characters, weapons, and game modes, and delivers updated versions of the classic CS content (de_dust2, etc.)."
-  },
-  {
-    "Name": "Assasin's Creed: Valhalla",
-    "Platform": "PC",
-    "BuyPrice": 111.99,
-    "SellPrice": 169.99,
-    "Genres": ["Action", "Story-Driven", "Third-Person Adventure"],
-    "Modes": ["Single-player"],
-    "ReleaseDate": "10-11-2020",
-    "Developers": ["Ubisoft Montreal"],
-    "Publishers": ["Ubisoft"],
-    "AvailableCopies": 20,
-    "ImageLink": "src/GameStore/Resources/img/GameCovers/ACValhallaPC.jpg",
-    "Description": "In Assassin's Creed Valhalla, become Eivor, a legendary Viking raider on a quest for glory. Explore a dynamic and beautiful open world set against the brutal backdrop of England’s Dark Ages. Raid your enemies, grow your settlement, and build your political power in the quest to earn a place among the gods in Valhalla."
-  },
-  {
-    "Name": "Assasin's Creed: Valhalla",
-    "Platform": "PS5",
-    "BuyPrice": 149.99,
-    "SellPrice": 219.99,
-    "Genres": ["Action", "Story-Driven", "Third-Person Adventure"],
-    "Modes": ["Single-player"],
-    "ReleaseDate": "10-11-2020",
-    "Developers": ["Ubisoft Montreal"],
-    "Publishers": ["Ubisoft"],
-    "AvailableCopies": 20,
-    "ImageLink": "src/GameStore/Resources/img/GameCovers/ACValhallaPS5.jpg",
-    "Description": "In Assassin's Creed Valhalla, become Eivor, a legendary Viking raider on a quest for glory. Explore a dynamic and beautiful open world set against the brutal backdrop of England’s Dark Ages. Raid your enemies, grow your settlement, and build your political power in the quest to earn a place among the gods in Valhalla."
-  },
-  {
-    "Name": "Assasin's Creed: Origins",
-    "Platform": "PC",
-    "BuyPrice": 79.99,
-    "SellPrice": 120.99,
-    "Genres": ["Action", "Story-Driven", "Third-Person Adventure"],
-    "Modes": ["Single-player"],
-    "ReleaseDate": "10-11-2020",
-    "Developers": ["Ubisoft Montreal"],
-    "Publishers": ["Ubisoft"],
-    "AvailableCopies": 20,
-    "ImageLink": "src/GameStore/Resources/img/GameCovers/ACOriginsPC.jpg",
-    "Description": "Assassin's Creed® Origins uncovers the beginning of the Brotherhood. Fight in epic battles, master a completely reinvented combat system, and explore the entirety of Egypt. With the all-new quest system, complete missions in any order you choose, and follow your own path to greatness."
-  },
-  {
-    "Name": "Assasin's Creed: Origins",
-    "Platform": "PS4",
-    "BuyPrice": 119.99,
-    "SellPrice": 149.99,
-    "Genres": ["Action", "Story-Driven", "Third-Person Adventure"],
-    "Modes": ["Single-player"],
-    "ReleaseDate": "10-11-2020",
-    "Developers": ["Ubisoft Montreal"],
-    "Publishers": ["Ubisoft"],
-    "AvailableCopies": 20,
-    "ImageLink": "src/GameStore/Resources/img/GameCovers/ACOriginsPS4.jpg",
-    "Description": "Assassin's Creed® Origins uncovers the beginning of the Brotherhood. Fight in epic battles, master a completely reinvented combat system, and explore the entirety of Egypt. With the all-new quest system, complete missions in any order you choose, and follow your own path to greatness."
-  },
-  {
-    "Name": "Assasin's Creed: Origins",
-    "Platform": "XBOX ONE",
-    "BuyPrice": 119.99,
-    "SellPrice": 149.99,
-    "Genres": ["Action", "Story-Driven", "Third-Person Adventure"],
-    "Modes": ["Single-player"],
-    "ReleaseDate": "10-11-2020",
-    "Developers": ["Ubisoft Montreal"],
-    "Publishers": ["Ubisoft"],
-    "AvailableCopies": 20,
-    "ImageLink": "src/GameStore/Resources/img/GameCovers/ACOriginsXbox.jpg",
-    "Description": "Assassin's Creed® Origins uncovers the beginning of the Brotherhood. Fight in epic battles, master a completely reinvented combat system, and explore the entirety of Egypt. With the all-new quest system, complete missions in any order you choose, and follow your own path to greatness."
-  }
-]
+{
+  "Name" : "Test",
+  "Platform" : "PC",
+  "BuyPrice" : 15.99,
+  "SellPrice" : 14.99,
+  "Genres" : [ "Genre1, Genre3" ],
+  "Modes" : [ "Single, Multi" ],
+  "ReleaseDate" : "21-01-2000",
+  "Developers" : [ "Taki, Owaki" ],
+  "Publishers" : [ "Blaki, Kaki" ],
+  "AvailableCopies" : 15,
+  "ImageLink" : "src/GameStore/Resources/img/GameCovers/ACOriginsXbox.jpg",
+  "Description" : "dasdasd"
+}
+  ]
