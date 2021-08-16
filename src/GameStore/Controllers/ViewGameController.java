@@ -1,6 +1,9 @@
 package GameStore.Controllers;
 
 import GameStore.Classes.Game;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,8 +12,10 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Iterator;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -51,12 +56,6 @@ public class ViewGameController implements Initializable {
         ModesLabel.setWrapText(true);
         DevelopersLabel.setWrapText(true);
         PublishersLabel.setWrapText(true);
-
-    //    String game_cover = homeController.game_data.getImageLink();
-    //    Image game_image = new Image(game_cover);
-
-    //    ImageViewCurrentGame.setImage(game_image);
-
     }
 
     public Optional<ButtonType> result;
@@ -88,6 +87,48 @@ public class ViewGameController implements Initializable {
         if(result.get() == ButtonType.CANCEL)
         {
             sellingGameInfo.close();
+        }
+    }
+
+    @FXML
+    public void deleteGame()
+    {
+        Alert deleteInfo = new Alert(Alert.AlertType.CONFIRMATION);
+        deleteInfo.setHeaderText("You are about to delete " + game_data.getName() + "\n from store!\n" +
+                "Are you sure?");
+        Optional<ButtonType> choice = deleteInfo.showAndWait();
+
+        if(choice.get() == ButtonType.OK)
+        {
+            Alert deleteSuccesful = new Alert(Alert.AlertType.INFORMATION);
+
+            Integer id = game_data.getId();
+            games_data.remove(id);
+
+            ObjectMapper mapper = new ObjectMapper();
+            try {
+                JsonNode jsonNode = mapper.readTree(new File("src/GameStore/Resources/games.json"));
+                Iterator<JsonNode> nodes = jsonNode.elements();
+
+                for (Iterator<JsonNode> it = nodes; it.hasNext(); ) {
+                    JsonNode gameNode = it.next();
+                    if(gameNode instanceof ObjectNode) {
+                        ObjectNode object = (ObjectNode) gameNode;
+                        object.removeAll();
+                    }
+                }
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+            deleteSuccesful.setHeaderText("Deleting successful.");
+            deleteSuccesful.showAndWait();
+
+        }
+
+        if(choice.get() == ButtonType.CANCEL)
+        {
+            deleteInfo.close();
         }
     }
 

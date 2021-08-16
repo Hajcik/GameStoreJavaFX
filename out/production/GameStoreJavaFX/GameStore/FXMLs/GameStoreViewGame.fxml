@@ -102,5 +102,10 @@
             <Font name="Helonia" size="15.0" />
          </font>
       </Label>
+      <Button fx:id="DeleteGameButton" layoutX="398.0" layoutY="404.0" mnemonicParsing="false" onAction="#deleteGame" prefHeight="25.0" prefWidth="192.0" style="-fx-background-color: #000000;" text="Delete Game" textFill="WHITE">
+         <font>
+            <Font name="Helonia Bold" size="16.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

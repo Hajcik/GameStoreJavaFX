@@ -9,6 +9,9 @@ import java.util.Date;
 
 public class Game {
 
+    @JsonFormat(shape = JsonFormat.Shape.NUMBER_INT)
+    private Integer Id;
+
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private String Name;
 
@@ -49,7 +52,8 @@ public class Game {
     public Game() {
     }
 
-    public Game(String name, String platform, Float buyPrice, Float sellPrice, String[] genres, String[] modes, Date releaseDate, String[] developers, String[] publishers, Integer availableCopies, String imageLink, String description) {
+    public Game(Integer id, String name, String platform, Float buyPrice, Float sellPrice, String[] genres, String[] modes, Date releaseDate, String[] developers, String[] publishers, Integer availableCopies, String imageLink, String description) {
+        Id = id;
         Name = name;
         Platform = platform;
         BuyPrice = buyPrice;
@@ -64,6 +68,13 @@ public class Game {
         Description = description;
     }
 
+    public Integer getId() {
+        return Id;
+    }
+
+    public void setId(Integer id) {
+        Id = id;
+    }
 
     public String getName() {
         return Name;
@@ -164,7 +175,8 @@ public class Game {
     @Override
     public String toString() {
         return "Game{" +
-                "Name='" + Name + '\'' +
+                "Id=" + Id +
+                ", Name='" + Name + '\'' +
                 ", Platform='" + Platform + '\'' +
                 ", BuyPrice=" + BuyPrice +
                 ", SellPrice=" + SellPrice +

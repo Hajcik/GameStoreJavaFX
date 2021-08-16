@@ -52,7 +52,7 @@ public class HomeController implements Initializable {
            while(true)
            {
                try{
-                   Thread.sleep(500);
+                   Thread.sleep(15000);
                    Platform.runLater(() -> loadDataJSON());
                }
                catch(InterruptedException e){
@@ -62,7 +62,7 @@ public class HomeController implements Initializable {
         });
 
         // make if statement to reload data after inserting new data
-     //   thread.start();
+      //  thread.start();
     }
 
 
@@ -118,11 +118,9 @@ public class HomeController implements Initializable {
         }
     }
 
-
     // FXML functions
 
     public Game game_data;
-
     // Add New Game
     @FXML
     public void onOpenDialog_AddNewGame(Event event)
@@ -137,12 +135,10 @@ public class HomeController implements Initializable {
             newGameController.setGame(game_data);
             newGameController.setData(games_obs);
 
-            // Add platforms to Combobox
-
 
             Stage stage = new Stage();
             stage.setTitle("New Game Panel");
-            stage.setScene(new Scene(root, 700, 450));
+            stage.setScene(new Scene(root, 700, 500));
             stage.setResizable(false);
             stage.show();
 

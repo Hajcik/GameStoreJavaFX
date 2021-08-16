@@ -1,8 +1,10 @@
 package GameStore.Controllers;
 
 import GameStore.Classes.Game;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SequenceWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import javafx.collections.FXCollections;
@@ -20,18 +22,17 @@ import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
 import java.awt.Desktop;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class NewGameController implements Initializable {
     private ObservableList<Game> games_data;
@@ -52,9 +53,31 @@ public class NewGameController implements Initializable {
     public String image_url;
 
     @FXML
+    public void clearData(Event event)
+    {
+        String floatvalue = "0.00";
+        Float float_v = Float.parseFloat(floatvalue);
+        ReleaseDateDatePicker.getEditor().clear();
+        LocalDate example = LocalDate.of(2000, 01, 01);
+        ReleaseDateDatePicker.setValue(example);
+        GameNameTextField.setText(null);
+        PublishersTextField.setText(null);
+        ModesTextField.setText(null);
+        BuyPriceTextField.setText(null);
+        SellPriceTextField.setText("0.00");
+        AvailableCopiesTextField.setText("0");
+        DevelopersTextField.setText(null);
+        GenresTextField.setText(null);
+        DescriptionTextArea.setText(null);
+        PlatformComboBox.getSelectionModel().clearSelection();
+
+    }
+
+    @FXML
     public void setGameValues()
     {
         Game game = new Game();
+
 
         // Game name
         game.setName(GameNameTextField.getText());
@@ -114,54 +137,85 @@ public class NewGameController implements Initializable {
         // Game image link
         game.setImageLink(image_url);
 
-        System.out.println(game.toString());
+        // Alert
+        Alert infoAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        infoAlert.setHeaderText("Confirm adding the game, is everything correct?");
 
-        try {
-            // object to json
-            ObjectMapper mapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
-            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-            ObjectNode game_node = mapper.createObjectNode();
+        Optional<ButtonType> result = infoAlert.showAndWait();
 
-            String tmp_genres = Arrays.toString(game.getGenres()).substring(1);
-            String tmp_modes = Arrays.toString(game.getModes()).substring(1);
-            String tmp_devs = Arrays.toString(game.getDevelopers()).substring(1);
-            String tmp_pubs = Arrays.toString(game.getPublishers()).substring(1);
+        if(result.get() == ButtonType.CANCEL)
+        {
+            infoAlert.close();
+        }
 
-
-            game_node.put("Name", game.getName());
-            game_node.put("Platform", game.getPlatform());
-            game_node.put("BuyPrice", game.getBuyPrice());
-            game_node.put("SellPrice", game.getSellPrice());
-            game_node.putArray("Genres").add(tmp_genres.substring(0, tmp_genres.length()-1));
-            game_node.putArray("Modes").add(tmp_modes.substring(0, tmp_modes.length()-1));
-            game_node.put("ReleaseDate", formatter.format(game.getReleaseDate()));
-            game_node.putArray("Developers").add(tmp_devs.substring(0, tmp_devs.length()-1));
-            game_node.putArray("Publishers").add(tmp_pubs.substring(0, tmp_pubs.length()-1));
-            game_node.put("AvailableCopies", game.getAvailableCopies());
-            game_node.put("ImageLink", game.getImageLink());
-            game_node.put("Description", game.getDescription());
-
-            String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(game_node);
+        if(result.get() == ButtonType.OK) {
 
             try {
-                mapper.writeValue(new File("src/GameStore/Resources/games.json"), game_node);
-            } catch (IOException e) {
+                // object to json
+                ObjectMapper mapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
+                SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+                ObjectNode game_node = mapper.createObjectNode();
+
+                String tmp_genres = Arrays.toString(game.getGenres()).substring(1);
+                String tmp_modes = Arrays.toString(game.getModes()).substring(1);
+                String tmp_devs = Arrays.toString(game.getDevelopers()).substring(1);
+                String tmp_pubs = Arrays.toString(game.getPublishers()).substring(1);
+
+                game_node.put("Name", game.getName());
+                game_node.put("Platform", game.getPlatform());
+                game_node.put("BuyPrice", game.getBuyPrice());
+                game_node.put("SellPrice", game.getSellPrice());
+                game_node.putArray("Genres").add(tmp_genres.substring(0, tmp_genres.length() - 1));
+                game_node.putArray("Modes").add(tmp_modes.substring(0, tmp_modes.length() - 1));
+                game_node.put("ReleaseDate", formatter.format(game.getReleaseDate()));
+                game_node.putArray("Developers").add(tmp_devs.substring(0, tmp_devs.length() - 1));
+                game_node.putArray("Publishers").add(tmp_pubs.substring(0, tmp_pubs.length() - 1));
+                game_node.put("AvailableCopies", game.getAvailableCopies());
+                game_node.put("ImageLink", game.getImageLink());
+                game_node.put("Description", game.getDescription());
+                game_node.put("Id", games_data.size());
+
+                String json = ",\n" + mapper.writerWithDefaultPrettyPrinter().writeValueAsString(game_node) + "\n]";
+
+
+                RandomAccessFile file = new RandomAccessFile("src/GameStore/Resources/games.json", "rw");
+                long length = file.length() - 1;
+                byte b;
+                try {
+                    do {
+                        length -= 1;
+                        file.seek(length);
+                        b = file.readByte();
+                    } while (b != 10 && length > 0);
+                    file.setLength(length + 1);
+
+                    Files.write(Paths.get("src/GameStore/Resources/games.json"), json.getBytes(), StandardOpenOption.APPEND);
+                    file.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
-            System.out.println(json);
+            Alert confirmed = new Alert(Alert.AlertType.INFORMATION);
+            confirmed.setHeaderText("Adding game succesful");
+            Optional<ButtonType> confirm = confirmed.showAndWait();
 
-        } catch (Exception e)
-        {
-            e.printStackTrace();
+            if(confirm.get() == ButtonType.OK)
+            {
+
+            }
         }
-
-        // Add alert info to button ADD "Are you sure?"
-        // Important to do!
-
     }
 
+
+
     private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+    @FXML
+    ImageView PreviewImageView;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
@@ -193,13 +247,15 @@ public class NewGameController implements Initializable {
         LocalDate example = LocalDate.of(2000, 01, 01);
         ReleaseDateDatePicker.setValue(example);
         PlatformComboBox.setItems(FXCollections.observableArrayList("PC", "PS3", "PS4", "PS5", "XBOX360", "XBOX ONE", "NINTENDO SWITCH"));
+
+        image_url = "src/GameStore/Resources/img/GameCovers/noimage_available.jpg";
+        Image default_img = new Image("file:" + image_url);
+        PreviewImageView.setImage(default_img);
     }
 
     public Button ChooseImageButton;
     private Desktop desktop = Desktop.getDesktop();
 
-    @FXML
-    ImageView PreviewImageView;
 
 
 
@@ -208,7 +264,6 @@ public class NewGameController implements Initializable {
         final Stage stage = new Stage();
         stage.setTitle("Choose image");
         final FileChooser fileChooser = new FileChooser();
-
         fileChooser.setInitialDirectory(new File("src/GameStore/Resources/img/GameCovers"));
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("All Images", "*.*"),
@@ -217,7 +272,6 @@ public class NewGameController implements Initializable {
                 );
         File file = fileChooser.showOpenDialog(stage);
             if(file != null){
-
                     System.out.println(file.getName());
                     image_url = "src/GameStore/Resources/img/GameCovers/" + file.getName();
                     Image tmp_img = new Image("file:" + image_url);
