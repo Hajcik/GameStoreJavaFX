@@ -104,20 +104,4 @@
     "Description": "Action filled FPS!",
     "Id": 6
   }
-,
-{
-  "Name" : "sdds",
-  "Platform" : "PS4",
-  "BuyPrice" : 0.0,
-  "SellPrice" : 0.0,
-  "Genres" : [ "sds" ],
-  "Modes" : [ "sda" ],
-  "ReleaseDate" : "01-01-2000",
-  "Developers" : [ "asd" ],
-  "Publishers" : [ "asd" ],
-  "AvailableCopies" : 15,
-  "ImageLink" : "src/GameStore/Resources/img/GameCovers/noimage_available.jpg",
-  "Description" : "asdasd",
-  "Id" : 7
-}
 ]

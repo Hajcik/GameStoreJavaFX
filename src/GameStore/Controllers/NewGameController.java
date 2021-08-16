@@ -55,15 +55,13 @@ public class NewGameController implements Initializable {
     @FXML
     public void clearData(Event event)
     {
-        String floatvalue = "0.00";
-        Float float_v = Float.parseFloat(floatvalue);
         ReleaseDateDatePicker.getEditor().clear();
         LocalDate example = LocalDate.of(2000, 01, 01);
         ReleaseDateDatePicker.setValue(example);
         GameNameTextField.setText(null);
         PublishersTextField.setText(null);
         ModesTextField.setText(null);
-        BuyPriceTextField.setText(null);
+        BuyPriceTextField.setText("0.00");
         SellPriceTextField.setText("0.00");
         AvailableCopiesTextField.setText("0");
         DevelopersTextField.setText(null);
@@ -78,134 +76,169 @@ public class NewGameController implements Initializable {
     {
         Game game = new Game();
 
+        Alert noDataAlert = new Alert(Alert.AlertType.ERROR);
 
-        // Game name
-        game.setName(GameNameTextField.getText());
 
-        // Game platform
-        game.setPlatform(PlatformComboBox.getSelectionModel().getSelectedItem());
-
-        String genres, modes, devs, publishers;
-        String[] genresInput, modesInput, devsInput, publishersInput;
-
-        // Game genres
-        genres = GenresTextField.getText();
-        genresInput = genres.split(",");
-        game.setGenres(genresInput);
-
-        // Game modes
-        modes = ModesTextField.getText();
-        modesInput = modes.split(",");
-        game.setModes(modesInput);
-
-        // Developers
-
-        devs = DevelopersTextField.getText();
-        devsInput = devs.split(",");
-        game.setDevelopers(devsInput);
-
-        // Publishers
-        publishers = PublishersTextField.getText();
-        publishersInput = publishers.split(",");
-        game.setPublishers(publishersInput);
-
-        // Buy Price set
-        String tmp_buy = BuyPriceTextField.getText();
-        Float tmp_buy_float = Float.parseFloat(tmp_buy);
-        game.setBuyPrice(tmp_buy_float);
-
-        // Sell Price set
-        String tmp_sell = SellPriceTextField.getText();
-        Float tmp_sell_float = Float.parseFloat(tmp_sell);
-        game.setSellPrice(tmp_sell_float);
-
-        // Available Copies set
-        String tmp_copies = AvailableCopiesTextField.getText();
-        Integer tmp_copies_int = Integer.parseInt(tmp_copies);
-        game.setAvailableCopies(tmp_copies_int);
-
-        // Release Date set
-        ZoneId defaultZoneId = ZoneId.systemDefault();
-
-        LocalDate localDate = ReleaseDateDatePicker.getValue();
-        Date date = Date.from(localDate.atStartOfDay(defaultZoneId).toInstant());
-        game.setReleaseDate(date);
-
-        // Description
-        game.setDescription(DescriptionTextArea.getText());
-
-        // Game image link
-        game.setImageLink(image_url);
-
-        // Alert
-        Alert infoAlert = new Alert(Alert.AlertType.CONFIRMATION);
-        infoAlert.setHeaderText("Confirm adding the game, is everything correct?");
-
-        Optional<ButtonType> result = infoAlert.showAndWait();
-
-        if(result.get() == ButtonType.CANCEL)
+        if(GameNameTextField.getText().isEmpty() || PlatformComboBox.getSelectionModel().isEmpty()
+        || GenresTextField.getText().isEmpty() || ModesTextField.getText().isEmpty() || DevelopersTextField.getText().isEmpty()
+        || PublishersTextField.getText().isEmpty() || BuyPriceTextField.getText().isEmpty() || SellPriceTextField.getText().isEmpty()
+        || AvailableCopiesTextField.getText().isEmpty() || DescriptionTextArea.getText().isEmpty())
         {
-            infoAlert.close();
+            noDataAlert.setHeaderText("One or more input fields is/are incorrect.\nFix values and then proceed.");
+            noDataAlert.showAndWait();
+        }
+        else if(SellPriceTextField.getText().equals("0.00") || BuyPriceTextField.getText().equals("0.00"))
+        {
+            noDataAlert.setHeaderText("Set price of Buy/Sell correctly. It cannot be 0.00.");
+            noDataAlert.showAndWait();
         }
 
-        if(result.get() == ButtonType.OK) {
+        else if(!AvailableCopiesTextField.getText().matches("^[0-9]*$"))
+        {
+            noDataAlert.setHeaderText("Input in Available copies has to be numeric.");
+            noDataAlert.showAndWait();
+        }
 
-            try {
-                // object to json
-                ObjectMapper mapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
-                SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-                ObjectNode game_node = mapper.createObjectNode();
+        else if(!SellPriceTextField.getText().matches("[+-]?(\\d+|\\d+\\.\\d+|\\.\\d+|\\d+\\.)([eE]\\d+)?"))
+        {
+            noDataAlert.setHeaderText("Input in Sell Price has to be numeric (with decimal values).");
+            noDataAlert.showAndWait();
+        }
 
-                String tmp_genres = Arrays.toString(game.getGenres()).substring(1);
-                String tmp_modes = Arrays.toString(game.getModes()).substring(1);
-                String tmp_devs = Arrays.toString(game.getDevelopers()).substring(1);
-                String tmp_pubs = Arrays.toString(game.getPublishers()).substring(1);
+        else if(!BuyPriceTextField.getText().matches("[+-]?(\\d+|\\d+\\.\\d+|\\.\\d+|\\d+\\.)([eE]\\d+)?"))
+        {
+            noDataAlert.setHeaderText("Input in Buy Price has to be numeric (with decimal values).");
+            noDataAlert.showAndWait();
+        }
 
-                game_node.put("Name", game.getName());
-                game_node.put("Platform", game.getPlatform());
-                game_node.put("BuyPrice", game.getBuyPrice());
-                game_node.put("SellPrice", game.getSellPrice());
-                game_node.putArray("Genres").add(tmp_genres.substring(0, tmp_genres.length() - 1));
-                game_node.putArray("Modes").add(tmp_modes.substring(0, tmp_modes.length() - 1));
-                game_node.put("ReleaseDate", formatter.format(game.getReleaseDate()));
-                game_node.putArray("Developers").add(tmp_devs.substring(0, tmp_devs.length() - 1));
-                game_node.putArray("Publishers").add(tmp_pubs.substring(0, tmp_pubs.length() - 1));
-                game_node.put("AvailableCopies", game.getAvailableCopies());
-                game_node.put("ImageLink", game.getImageLink());
-                game_node.put("Description", game.getDescription());
-                game_node.put("Id", games_data.size());
+        else {
 
-                String json = ",\n" + mapper.writerWithDefaultPrettyPrinter().writeValueAsString(game_node) + "\n]";
+            // Game name
+            game.setName(GameNameTextField.getText());
 
+            // Game platform
+            game.setPlatform(PlatformComboBox.getSelectionModel().getSelectedItem());
 
-                RandomAccessFile file = new RandomAccessFile("src/GameStore/Resources/games.json", "rw");
-                long length = file.length() - 1;
-                byte b;
+            String genres, modes, devs, publishers;
+            String[] genresInput, modesInput, devsInput, publishersInput;
+
+            // Game genres
+            genres = GenresTextField.getText();
+            genresInput = genres.split(",");
+            game.setGenres(genresInput);
+
+            // Game modes
+            modes = ModesTextField.getText();
+            modesInput = modes.split(",");
+            game.setModes(modesInput);
+
+            // Developers
+
+            devs = DevelopersTextField.getText();
+            devsInput = devs.split(",");
+            game.setDevelopers(devsInput);
+
+            // Publishers
+            publishers = PublishersTextField.getText();
+            publishersInput = publishers.split(",");
+            game.setPublishers(publishersInput);
+
+            // Buy Price set
+            String tmp_buy = BuyPriceTextField.getText();
+            Float tmp_buy_float = Float.parseFloat(tmp_buy);
+            game.setBuyPrice(tmp_buy_float);
+
+            // Sell Price set
+            String tmp_sell = SellPriceTextField.getText();
+            Float tmp_sell_float = Float.parseFloat(tmp_sell);
+            game.setSellPrice(tmp_sell_float);
+
+            // Available Copies set
+            String tmp_copies = AvailableCopiesTextField.getText();
+            Integer tmp_copies_int = Integer.parseInt(tmp_copies);
+            game.setAvailableCopies(tmp_copies_int);
+
+            // Release Date set
+            ZoneId defaultZoneId = ZoneId.systemDefault();
+
+            LocalDate localDate = ReleaseDateDatePicker.getValue();
+            Date date = Date.from(localDate.atStartOfDay(defaultZoneId).toInstant());
+            game.setReleaseDate(date);
+
+            // Description
+            game.setDescription(DescriptionTextArea.getText());
+
+            // Game image link
+            game.setImageLink(image_url);
+
+            // Alert
+            Alert infoAlert = new Alert(Alert.AlertType.CONFIRMATION);
+            infoAlert.setHeaderText("Confirm adding the game, is everything correct?");
+
+            Optional<ButtonType> result = infoAlert.showAndWait();
+
+            if (result.get() == ButtonType.CANCEL) {
+                infoAlert.close();
+            }
+
+            if (result.get() == ButtonType.OK) {
+
                 try {
-                    do {
-                        length -= 1;
-                        file.seek(length);
-                        b = file.readByte();
-                    } while (b != 10 && length > 0);
-                    file.setLength(length + 1);
+                    // object to json
+                    ObjectMapper mapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
+                    SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+                    ObjectNode game_node = mapper.createObjectNode();
 
-                    Files.write(Paths.get("src/GameStore/Resources/games.json"), json.getBytes(), StandardOpenOption.APPEND);
-                    file.close();
-                } catch (IOException e) {
+                    String tmp_genres = Arrays.toString(game.getGenres()).substring(1);
+                    String tmp_modes = Arrays.toString(game.getModes()).substring(1);
+                    String tmp_devs = Arrays.toString(game.getDevelopers()).substring(1);
+                    String tmp_pubs = Arrays.toString(game.getPublishers()).substring(1);
+
+                    game_node.put("Name", game.getName());
+                    game_node.put("Platform", game.getPlatform());
+                    game_node.put("BuyPrice", game.getBuyPrice());
+                    game_node.put("SellPrice", game.getSellPrice());
+                    game_node.putArray("Genres").add(tmp_genres.substring(0, tmp_genres.length() - 1));
+                    game_node.putArray("Modes").add(tmp_modes.substring(0, tmp_modes.length() - 1));
+                    game_node.put("ReleaseDate", formatter.format(game.getReleaseDate()));
+                    game_node.putArray("Developers").add(tmp_devs.substring(0, tmp_devs.length() - 1));
+                    game_node.putArray("Publishers").add(tmp_pubs.substring(0, tmp_pubs.length() - 1));
+                    game_node.put("AvailableCopies", game.getAvailableCopies());
+                    game_node.put("ImageLink", game.getImageLink());
+                    game_node.put("Description", game.getDescription());
+                    game_node.put("Id", games_data.size());
+
+                    String json = ",\n" + mapper.writerWithDefaultPrettyPrinter().writeValueAsString(game_node) + "\n]";
+
+
+                    RandomAccessFile file = new RandomAccessFile("src/GameStore/Resources/games.json", "rw");
+                    long length = file.length() - 1;
+                    byte b;
+                    try {
+                        do {
+                            length -= 1;
+                            file.seek(length);
+                            b = file.readByte();
+                        } while (b != 10 && length > 0);
+                        file.setLength(length + 1);
+
+                        Files.write(Paths.get("src/GameStore/Resources/games.json"), json.getBytes(), StandardOpenOption.APPEND);
+                        file.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+                Alert confirmed = new Alert(Alert.AlertType.INFORMATION);
+                confirmed.setHeaderText("Adding game succesful");
+                Optional<ButtonType> confirm = confirmed.showAndWait();
 
-            Alert confirmed = new Alert(Alert.AlertType.INFORMATION);
-            confirmed.setHeaderText("Adding game succesful");
-            Optional<ButtonType> confirm = confirmed.showAndWait();
+                if (confirm.get() == ButtonType.OK) {
 
-            if(confirm.get() == ButtonType.OK)
-            {
-
+                }
             }
         }
     }
@@ -254,7 +287,7 @@ public class NewGameController implements Initializable {
     }
 
     public Button ChooseImageButton;
-    private Desktop desktop = Desktop.getDesktop();
+
 
 
 
