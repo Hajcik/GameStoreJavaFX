@@ -1,17 +1,12 @@
 package GameStore.Controllers;
 
 import GameStore.Classes.Game;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SequenceWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -20,11 +15,8 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
-
-import java.awt.Desktop;
 import java.io.*;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -47,8 +39,6 @@ public class NewGameController implements Initializable {
 
     public void setData(ObservableList<Game> games_data) {this.games_data = games_data;}
     public void setGame(Game game) {this.game_data = game;}
-
-    public ObservableList<String> platforms;
 
     public String image_url;
 
@@ -288,10 +278,6 @@ public class NewGameController implements Initializable {
 
     public Button ChooseImageButton;
 
-
-
-
-
     @FXML
     public void open_img(Event event){
         final Stage stage = new Stage();
@@ -310,8 +296,5 @@ public class NewGameController implements Initializable {
                     Image tmp_img = new Image("file:" + image_url);
                     PreviewImageView.setImage(tmp_img);
             }
-
-
     }
-
 }

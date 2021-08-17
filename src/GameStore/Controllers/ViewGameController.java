@@ -6,9 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 
@@ -39,7 +37,6 @@ public class ViewGameController implements Initializable {
 
     private ObservableList<Game> games_data;
     private Game game_data;
-    private HomeController homeController;
 
     public void setData(ObservableList<Game> games_data){
         this.games_data = games_data;

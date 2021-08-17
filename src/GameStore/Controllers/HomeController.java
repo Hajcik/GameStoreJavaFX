@@ -6,30 +6,19 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -189,17 +178,11 @@ public class HomeController implements Initializable {
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
             viewGameController.ReleaseDateLabel.setText(formatter.format(game_data.getReleaseDate()));
 
-
-
-
             Stage stage = new Stage();
             stage.setTitle("Game Information");
             stage.setScene(new Scene(root, 800, 450));
             stage.setResizable(false);
             stage.show();
-
-
-
           //  ((Node)(event.getSource())).getScene().getWindow().hide();
         }
         catch (IOException e) {
@@ -222,10 +205,8 @@ public class HomeController implements Initializable {
         aboutAlert.showAndWait();
     }
 
-
     public void exitApp()
     {
         System.exit(0);
     }
-
 }
